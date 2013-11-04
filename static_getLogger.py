@@ -37,7 +37,7 @@ class B(A):
         l.error('B exploding!!!')
 
 
-fileConfig('logging_config.ini')
+fileConfig('static_logging_config.ini')
 
 c = B()
 c.my_method()
