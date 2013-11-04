@@ -39,6 +39,10 @@ o = B()
 This would lead to 2 info messages.
 The first logged under category `A.__init__` and the second logged under `B.__init__`.
 So, it's easy to trace the message back to the code.
+However if you want to manipulate the logging level of all methods called via B,
+you will need to also manipulate the logging level of A.
+I find this counter-intuitive. Worse, it leads to overly verbose config code.
+This substantially interferes with the value proposition of category logging.
 
 introspective
 -------------

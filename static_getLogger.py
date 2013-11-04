@@ -36,6 +36,12 @@ class B(A):
         l.info('B info')
         l.error('B exploding!!!')
 
+    def my_interesting_method(self):
+        super(B, self).my_interesting_method()
+        l = getLogger('B.my_interesting_method')
+        l.debug('debug output in my_interesting_method')
+        l.info('info input in my_interesting_method')
+
 
 fileConfig('static_logging_config.ini')
 
