@@ -87,4 +87,44 @@ you probably don't want to also have to go writing config to manipulate logging 
 It also means that both B and C classes may have different configurations and that those configurations
 will be adhered to in A's behavior depending on which child class is calling into A's methods.
 
-I feel that the introspective approach is the better option.
+I feel that the introspective approach is the better option, but the downside is that it's ugly.
+
+auto_getlogger
+--------------
+
+There's a lot of complicated code being replicated in the introspective example.
+It's even using inspect.stack(), which is, in my experience, a little bit fragile,
+and not something I like putting in production code.
+Worse, all that replication of code is just plain ugly,
+so let's use the auto_getlogger package at
+https://github.com/ahammond/auto_getlogger
+to automate things.
+
+```bash
+pip install auto_getlogger
+```
+
+Now our code looks a lot simpler but works the same as the introspective example above.
+
+```python
+from auto_getlogger import AutoGetLogger
+
+class A(AutoGetLogger):
+    def __init__(self, l=None):
+        l. info('A info message')
+
+
+class B(A):
+    def __init__(self, l=None):
+        super(B, self).__init__()
+        l.info('B info message')
+
+
+class C(A):
+    def __init__(self, l=None):
+        super(C, self).__init__()
+        l.info('C info message')
+```
+
+In this case, we have the same behavior as with the introspective code above,
+but with much cleaner code.
